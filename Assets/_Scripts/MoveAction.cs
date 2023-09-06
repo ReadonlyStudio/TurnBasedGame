@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MoveAction : MonoBehaviour
 {
@@ -32,9 +33,14 @@ public class MoveAction : MonoBehaviour
             unitAnimator.SetBool("isWalking", false);
         }
     }
-    public void Move(Vector3 _targetPosition)
+    public void Move(GridPosition gridPosition)
     {
-        targetPosition = _targetPosition;
+        targetPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
+    }
+    public bool IsValidActionGridPosition(GridPosition gridPosition)
+    {
+        List<GridPosition> validGridPositionList = GetValidActionGridPositionList();
+        return validGridPositionList.Contains(gridPosition);
     }
     public List<GridPosition> GetValidActionGridPositionList() 
     {
@@ -52,6 +58,17 @@ public class MoveAction : MonoBehaviour
                 {
                     continue;
                 }
+                if (unitGridPosition == testGridPosition)
+                {
+                    // Same Grid position where the unit is already at
+                    continue;
+                }
+                if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
+                {
+                    //Grid Position already occupied with another unit
+                    continue;
+                }
+                validGridPositionList.Add(testGridPosition);
                 Debug.Log(testGridPosition);
             }
         }
