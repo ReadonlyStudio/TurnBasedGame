@@ -36,7 +36,7 @@ public class GridSystemVisual : MonoBehaviour
                 gridSystemVisualSingleArray[x, z] = gridSystemVisualSingleTransform.GetComponent<GridSystemVisualSingle>();
             }
         }
-        HideAllGridPosition();
+        //HideAllGridPosition();
     }
     private void Update()
     {
