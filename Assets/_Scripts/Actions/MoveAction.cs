@@ -82,10 +82,13 @@ public class MoveAction : BaseAction
                     continue;
                 }
                 validGridPositionList.Add(testGridPosition);
-                Debug.Log(testGridPosition);
             }
         }
 
         return validGridPositionList;
+    }
+    public override string GetActionName()
+    {
+        return "Move";
     }
 }
