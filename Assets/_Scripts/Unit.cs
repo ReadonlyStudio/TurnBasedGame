@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -8,6 +9,7 @@ public class Unit : MonoBehaviour
     private MoveAction moveAction;
     private SpinAction spinAction;
     private BaseAction[] baseActionArray;
+    private int actionPoints = 2;
     private void Awake()
     {
         moveAction = GetComponent<MoveAction>();
@@ -44,4 +46,36 @@ public class Unit : MonoBehaviour
     {
         return baseActionArray;
     }
+    public bool TrySpendActionPointsToTakeAction(BaseAction baseAction)
+    {
+        if (CanSpendActionPointsToTakeAction(baseAction))
+        {
+            SpendActionPoints(baseAction.GetActionPointsCost());
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public int getActionPoints()
+    {
+        return actionPoints;
+    }
+    private bool CanSpendActionPointsToTakeAction(BaseAction baseAction)
+    {
+        if (actionPoints >= baseAction.GetActionPointsCost())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private void SpendActionPoints(int amount)
+    {
+        actionPoints -= amount;
+    }
+    
 }
