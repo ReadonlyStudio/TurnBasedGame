@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class HealthSystem : MonoBehaviour
 {
+    public event EventHandler OnDead;
     [SerializeField] private int health = 100;
 
     public void Damage(int damageAmount)
@@ -23,6 +24,6 @@ public class HealthSystem : MonoBehaviour
 
     private void Die()
     {
-        throw new NotImplementedException();
+        OnDead?.Invoke(this, EventArgs.Empty);
     }
 }
