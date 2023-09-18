@@ -145,4 +145,8 @@ public class ShootAction : BaseAction
 
         ActionStart(onActionComplete);
     }
+    public Unit GetTargetUnit()
+    {
+        return targetUnit;
+    }
 }
