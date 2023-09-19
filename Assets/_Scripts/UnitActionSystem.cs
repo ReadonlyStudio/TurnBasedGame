@@ -60,6 +60,7 @@ public class UnitActionSystem : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+            
             if (!selectedAction.IsValidActionGridPosition(mouseGridPosition))
             {
                 return;
@@ -70,6 +71,7 @@ public class UnitActionSystem : MonoBehaviour
             }
             SetBusy();
             selectedAction.TakeAction(mouseGridPosition, ClearBusy);
+
             OnActionStarted?.Invoke(this, EventArgs.Empty);
         }
     }
