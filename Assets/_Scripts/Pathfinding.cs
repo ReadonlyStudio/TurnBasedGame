@@ -33,7 +33,7 @@ public class Pathfinding : MonoBehaviour
         this.width = width;
         this.height = height;
         this.cellSize = cellSize;
-        gridSystem = new GridSystem<PathNode>(10, 10, 2f,
+        gridSystem = new GridSystem<PathNode>(width, height, cellSize,
             (GridSystem<PathNode> g, GridPosition gridPosition) => new PathNode(gridPosition));
         
         gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
