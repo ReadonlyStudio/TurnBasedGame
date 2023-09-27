@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -18,6 +19,7 @@ public class ShootAction : BaseAction
         Shooting,
         Cooloff,
     }
+    [SerializeField] private LayerMask obstaclesLayerMask;
     private State state;
     private int maxShootDistance = 7;
     private float stateTimer;
@@ -126,6 +128,20 @@ public class ShootAction : BaseAction
                     //Both Units on same "team"
                     continue;
                 }
+                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
+                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
+
+                float unitShoulderHeight = 1.7f;
+                if (Physics.Raycast(
+                    unitWorldPosition + Vector3.up * unitShoulderHeight,
+                    shootDir,
+                    Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
+                    obstaclesLayerMask))
+                {
+                    //Blocked by an Obstacle
+                    continue;
+                }
+
 
                 validGridPositionList.Add(testGridPosition);
             }
